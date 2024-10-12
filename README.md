@@ -1,1 +1,1 @@
-# formalized-selection-games
+# SelectionGames
