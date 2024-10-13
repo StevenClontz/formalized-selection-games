@@ -8,21 +8,21 @@ structure SGame (X) where
   A : Set (Set X)
   B : Set (Set X)
 
-structure Play (g : SGame X) where
+structure SGame.Play (g : SGame X) where
   Moves₁ : ℕ → Set X
   Moves₂ : ℕ → X
   Legal₁ : ∀ n, Moves₁ n ∈ g.A
   Legal₂ : ∀ n, Moves₂ n ∈ Moves₁ n
 
-def OneWins (g : SGame X) (p : Play g) : Prop :=
+def SGame.OneWins (g : SGame X) (p : g.Play) : Prop :=
   range p.Moves₂ ∈ g.B
 
-def TwoWins (g : SGame X) (p : Play g) : Prop :=
-  ¬ OneWins g p
+def SGame.TwoWins (g : SGame X) (p : g.Play) : Prop :=
+  ¬ g.OneWins p
 
-structure OnePre (g : SGame X) where
+structure SGame.OnePre (g : SGame X) where
   Moves : ℕ → Set X
   Legal : ∀ n, Moves n ∈ g.A
 
-def SPrinciple (g : SGame X) : Prop :=
-  ∀ σ : OnePre g, ∃ p : Play g, p.Moves₁ = σ.Moves ∧ TwoWins g p
+def SGame.Principle (g : SGame X) : Prop :=
+  ∀ σ : g.OnePre, ∃ p : g.Play, p.Moves₁ = σ.Moves ∧ g.TwoWins p
